@@ -1,4 +1,5 @@
 ![Workflow Status](https://github.com/maxxxonchikipiki/haar/actions/workflows/classroom.yml/badge.svg)
+
 # Признаки Хаара
 
 Признаки Хаара — признаки цифрового изображения, используемые в распознавании образов. Использовались в первом детекторе лиц, работающем в реальном времени.
