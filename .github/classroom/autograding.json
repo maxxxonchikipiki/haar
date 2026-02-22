@@ -1,0 +1,204 @@
+{
+  "tests": [
+    {
+      "name": "Test 1",
+      "setup": "unzip -q tests/boxes.zip -d tests && unzip -q tests/ans.zip -d tests",
+      "run": "timeout 1 ./haar tests/simple10x10.img tests/boxes_simple.txt > output.txt && cmp output.txt tests/simple_boxes.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 2",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/simple10x10.img tests/boxes_errors.txt > output.txt && cmp output.txt tests/simple_errors.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 3",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/black.img tests/boxes-256x256-100.txt > output.txt && cmp output.txt tests/black-100.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 4",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/black.img tests/boxes-256x256-32x32.txt > output.txt && cmp output.txt tests/black-32x32.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 5",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/white.img tests/boxes-256x256-100.txt > output.txt && cmp output.txt tests/white-100.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 6",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/white.img tests/boxes-256x256-32x32.txt > output.txt && cmp output.txt tests/white-32x32.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 7",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/malevich.img tests/boxes-256x256-100.txt > output.txt && cmp output.txt tests/malevich-100.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 8",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/malevich.img tests/boxes-256x256-32x32.txt > output.txt && cmp output.txt tests/malevich-32x32.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 9",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/lenna.img tests/boxes-512x512-1000.txt > output.txt && cmp output.txt tests/lenna-1000.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 10",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/lenna.img tests/boxes-512x512-32x32-s2.txt > output.txt && cmp output.txt tests/lenna-32x32-s2.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 11",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/lenna.img tests/boxes-512x512-32x32.txt > output.txt && cmp output.txt tests/lenna-32x32.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 12",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-16-16-s2.txt > output.txt && cmp output.txt tests/barbara-16-16-s2.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 13",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-32-32-s2.txt > output.txt && cmp output.txt tests/barbara-32-32-s2.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 14",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-32-32-s1.txt > output.txt && cmp output.txt tests/barbara-32-32-s1.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 15",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-16-32-s1.txt > output.txt && cmp output.txt tests/barbara-16-32-s1.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 16",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-32-8-s1.txt > output.txt && cmp output.txt tests/barbara-32-8-s1.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 17",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-8-32-s1.txt > output.txt && cmp output.txt tests/barbara-8-32-s1.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 18",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-100k.txt > output.txt && cmp output.txt tests/barbara-100k.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 19",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-300k.txt > output.txt && cmp output.txt tests/barbara-300k.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    },
+    {
+      "name": "Test 20",
+      "setup": "",
+      "run": "timeout 1 ./haar tests/barbara.img tests/boxes-720-576-500k.txt > output.txt && cmp output.txt tests/barbara-500k.ans",
+      "input": "",
+      "output": "",
+      "comparison": "exact",
+      "timeout": 1,
+      "points": 1
+    }
+  ]
+}
