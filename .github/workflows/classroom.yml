@@ -1,0 +1,59 @@
+name: GitHub Classroom Workflow
+
+on: 
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - '.github/*'
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  Checking-Solution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          !(grep -qwRE --include=*.{cc,cpp,h} '<vector>|<list>|<algorithm>|<stack>|<queue>|<deque>|<set>|<map>|<string>|<bits' ./* ) && (echo "Build...") || (echo "Forbidden STL containers" && exit 9)
+          clang++ -pedantic-errors -std=c++20 haar.cpp -o haar
+
+      - name: Autograding
+        uses: amcp-pit/autograding@v1
+
+      - name: Install valgrind
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y valgrind
+
+      - name: Memory leaks
+        run: |
+          valgrind --tool=memcheck --leak-check=full --undef-value-errors=no --error-exitcode=111 ./haar tests/lenna.img tests/boxes-512x512-1000.txt
+
+      - name: Code linting
+        uses: amcp-pit/cpp-linter@v1
+        with:
+          extra-args-before: '-xc++'
+          extra-args: '-std=c++20'
+          after-args: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: CPD
+        uses: amcp-pit/cpd-action@v1
+        id: cpd
+        with:
+          repository: ${{ github.repository }}
+          collection: ${{ github.repository_owner }}
+
+      - name: Clean
+        run: |
+          rm -rf ./* || true
+          rm -rf ./.??* || true
