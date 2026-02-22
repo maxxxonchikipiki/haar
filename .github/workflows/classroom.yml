@@ -19,22 +19,33 @@ jobs:
       - name: Get repository code
         uses: actions/checkout@v4
 
-      - name: Build
+      - name: Install dependencies
         run: |
-          !(grep -qwRE --include=*.{cc,cpp,h} '<vector>|<list>|<algorithm>|<stack>|<queue>|<deque>|<set>|<map>|<string>|<bits' ./* ) && (echo "Build...") || (echo "Forbidden STL containers" && exit 9)
-          clang++ -pedantic-errors -std=c++20 haar.cpp -o haar
+          sudo apt-get update -qq
+          sudo apt-get install -y valgrind clang
+
+      - name: Check for forbidden STL
+        run: |
+          if grep -rwE --include='*.cpp' --include='*.h' '<vector>|<list>|<algorithm>|<stack>|<queue>|<deque>|<set>|<map>|<string>|<bits/stdc++.h>' haar.cpp; then
+            echo "Forbidden STL containers found!"
+            exit 9
+          fi
+          echo "Build..."
+
+      - name: Build
+        run: clang++ -std=c++20 -g -O0 -Wall -Wextra -o haar haar.cpp
 
       - name: Autograding
         uses: amcp-pit/autograding@v1
 
-      - name: Install valgrind
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y valgrind
-
       - name: Memory leaks
         run: |
-          valgrind --tool=memcheck --leak-check=full --undef-value-errors=no --error-exitcode=111 ./haar tests/lenna.img tests/boxes-512x512-1000.txt
+          if [[ -f tests/lenna.img && -f tests/boxes-512x512-1000.txt ]]; then
+            valgrind --tool=memcheck --leak-check=full --undef-value-errors=no --error-exitcode=111 ./haar tests/lenna.img tests/boxes-512x512-1000.txt
+          else
+            echo "Test files not found"
+            exit 1
+          fi
 
       - name: Code linting
         uses: amcp-pit/cpp-linter@v1
@@ -43,17 +54,9 @@ jobs:
           extra-args: '-std=c++20'
           after-args: '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: CPD
         uses: amcp-pit/cpd-action@v1
         id: cpd
         with:
           repository: ${{ github.repository }}
           collection: ${{ github.repository_owner }}
-
-      - name: Clean
-        run: |
-          rm -rf ./* || true
-          rm -rf ./.??* || true
